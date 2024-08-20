@@ -1,0 +1,49 @@
+<h1>会員詳細情報</h1>
+<table border=1>
+        <tr>
+            <th>ID</th>
+            <td><%= @user.id %></td>
+        </tr>
+        <tr>
+            <th>氏名</th>
+            <td><%= @user.name %></td>
+        </tr>
+        <tr>
+            <th>郵便番号</th>
+            <td><%= @user.post_code%></td>
+        </tr>
+        <tr>
+            <th>住所</th>
+            <td><%= @user.address %></td>
+        </tr>
+        <tr>
+            <th>電話番号</th>
+            <td><%= @user.tel_number %></td>
+        </tr>
+        <tr>
+            <th>E-mail</th>
+            <td><%= @user.email %></td>
+        </tr>
+        <tr>
+            <th>生年月日</th>
+            <td><%= @user.birth_date %></td>
+        </tr>
+        <tr>
+            <th>入会年月日</th>
+            <td><%= @user.join_date %></td>
+        </tr>
+        <tr>
+            <th>退会年月日</th>
+            <td><%= @user.resign_date %></td>
+        </tr>
+        <tr>
+            <th>更新年月日</th>
+            <td><%= @user.updated_at %></td>
+        </tr>
+</table>
+<p><%= button_to '編集する', edit_user_path, method: :get %></p>
+
+<p><%= button_to '削除する', user_path(@user), method: :delete, onclick: "return confirm('削除しますか?')" %></p>
+
+<p><%= button_to '一覧へ戻る', users_path, method: :get %></p>
+

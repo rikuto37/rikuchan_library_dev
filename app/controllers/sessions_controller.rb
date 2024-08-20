@@ -7,12 +7,11 @@ class SessionsController < ApplicationController
     password = params[:password]
     if login(email, password)
       flash[:success] = 'ログインしました'
-      #redirect_to 会員一覧検索ぺーじ
+      redirect_to users_path
     else
       flash.now[:danger] = 'ログインできませんでした'
       render action: :new, status: :unprocessable_entity
     end
-
   end
 
   def destroy

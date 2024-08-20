@@ -1,0 +1,29 @@
+<h1>会員情報一覧</h1>
+<%= link_to '新規会員登録', new_user_path %>
+<table border=1>
+    <tr>
+        <th>ID</th>
+        <th>氏名</th>
+        <th>郵便番号</th>
+        <th>住所</th>
+        <th>電話番号</th>
+        <th>E-mail</th>
+        <th>生年月日</th>
+        <th>入会年月日</th>
+        <th>退会年月日</th>
+    </tr>
+    <% @users.each do |u| %>
+        <tr>
+            <td><%= u.id %></td>
+            <td><%= link_to u.name, user_path(u), id: u.id %></td>
+            <td><%= u.post_code%></td>
+            <td><%= u.address %></td>
+            <td><%= u.tel_number %></td>
+            <td><%= u.email %></td>
+            <td><%= u.birth_date %></td>
+            <td><%= u.join_date %></td>
+            <td><%= u.resign_date %></td>
+        </tr>
+    <% end %>
+</table>
+

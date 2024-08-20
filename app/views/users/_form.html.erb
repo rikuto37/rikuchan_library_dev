@@ -1,0 +1,42 @@
+<table border=1>
+        <tr>
+            <th>ID</th>
+            <td><%= @user.id %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :name, '氏名' %></th>
+            <td><%= f.text_field :name, value: @user.name %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :post_code, '郵便番号' %></th>
+            <td><%= f.text_field :post_code, value: @user.post_code %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :address, '住所' %></th>
+            <td><%= f.text_field :address, value: @user.address %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :tel_number, '電話番号' %></th>
+            <td><%= f.text_field :tel_number, value: @user.tel_number %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :email, 'E-mail' %></th>
+            <td><%= f.text_field :email, value: @user.email %></td>
+        </tr>
+        <tr>
+            <th>生年月日</th>
+            <td><%= f.date_field :birth_date, value: @user.birth_date %></td>
+        </tr>
+        <tr>
+            <th>入会年月日</th>
+            <td><%= f.date_field :join_date, value: @user.join_date %></td>
+        </tr>
+        <tr>
+            <th>退会年月日</th>
+            <td><%= f.date_field :resign_date, value: @user.resign_date %></td>
+        </tr>
+        <tr>
+            <th>更新年月日</th>
+            <td><%= @user.updated_at %></td>
+        </tr>
+</table>

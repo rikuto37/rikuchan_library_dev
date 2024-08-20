@@ -1,0 +1,7 @@
+<h1>会員情報編集</h1>
+<%= form_with model: @user do |f| %>
+    <%= render 'form', f: f %>
+    <p><%= f.submit '編集' %></p>
+<% end %>
+<p><%= button_to 'キャンセル', @user, method: :get %></p>
+<%= button_to '一覧へ戻る', users_path, method: :get %>
