@@ -1,7 +1,14 @@
-<h1>会員情報編集</h1>
+<% @document_title = "会員情報編集" %>
+
+<%= render 'commons/errors', model: @user %>
 <%= form_with model: @user do |f| %>
     <%= render 'form', f: f %>
-    <p><%= f.submit '編集' %></p>
+    <p>
+        <%= f.submit '編集' %>
+    </p>
 <% end %>
-<p><%= button_to 'キャンセル', @user, method: :get %></p>
-<%= button_to '一覧へ戻る', users_path, method: :get %>
+
+<p>
+    <%= link_to 'キャンセル', @user, class:"link-dark" %>
+    <%= link_to '一覧へ戻る', users_path, class:"link-dark" %>
+</p>

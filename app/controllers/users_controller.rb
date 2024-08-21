@@ -1,6 +1,19 @@
 class UsersController < ApplicationController
+  before_action :require_logged_in
   def index
     @users = User.order(:id)
+    id = params[:id]
+    name = params[:name]
+    # except_resigned = params[:resign_date]
+    if id.present?
+      @users = @users.where(id: id)
+    end
+    if name.present?
+      @users = @users.where('name LIKE ?', "%#{name}%")
+    end
+    # if resign_date.present?
+    #   @users = @users.
+    # end
   end
   
   def show
@@ -17,7 +30,6 @@ class UsersController < ApplicationController
       flash[:success] = '登録できました'
       redirect_to user_path(@user)
     else
-      flash.now[:danger] = '登録できませんでした'
       render 'new', status: :unprocessable_entity
     end
   end
@@ -28,10 +40,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = '登録できました'
+      flash[:success] = '編集しました'
       redirect_to user_path(@user)
     else
-      flash.now[:danger] = '登録できませんでした'
       render 'edit', status: :unprocessable_entity
     end
   end

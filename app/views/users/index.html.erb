@@ -1,6 +1,20 @@
-<h1>会員情報一覧</h1>
-<%= link_to '新規会員登録', new_user_path %>
-<table border=1>
+<% @document_title = "会員情報一覧" %>
+
+<header>
+    <%= form_with url: users_path, method: :get do |f| %>
+    <p>
+        <%= f.text_field :id, value: params[:id], placeholder: "ID" %>
+    </p>
+    <p>
+        <%= f.text_field :name, value: params[:name], placeholder: "氏名" %>
+        <%= f.submit '検索', name: nil%>
+    </p>
+    <% end %>
+</header>
+
+
+<%= link_to '新規会員登録', new_user_path, class:"link-dark" %>
+<table class="table table-striped">
     <tr>
         <th>ID</th>
         <th>氏名</th>
@@ -15,7 +29,7 @@
     <% @users.each do |u| %>
         <tr>
             <td><%= u.id %></td>
-            <td><%= link_to u.name, user_path(u), id: u.id %></td>
+            <td><%= link_to u.name, user_path(u), id: u.id, class:"link-primary" %></td>
             <td><%= u.post_code%></td>
             <td><%= u.address %></td>
             <td><%= u.tel_number %></td>
@@ -27,3 +41,8 @@
     <% end %>
 </table>
 
+<% if @users.count == 0 %>
+<div class="alert alert-primary d-flex align-items-center" role="alert">
+    該当する会員は見つかりません
+</div>
+<% end %>

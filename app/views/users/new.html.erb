@@ -1,6 +1,10 @@
-<h1>新規会員登録</h1>
+<% @document_title = "新規会員登録" %>
+
+<%= render 'commons/errors', model: @user %>
+
 <%= form_with model: @user do |f| %>
     <%= render 'form', f: f %>
     <%= f.submit '登録' %>
 <% end %>
-<%= link_to '一覧へ戻る', users_path %>
+
+<%= link_to '一覧へ戻る', users_path, class:"link-dark" %>
