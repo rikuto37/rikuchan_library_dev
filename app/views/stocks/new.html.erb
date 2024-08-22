@@ -1,2 +1,10 @@
-<h1>Stocks#new</h1>
-<p>Find me in app/views/stocks/new.html.erb</p>
+<% @document_title = "新規在庫登録" %>
+
+<%= render 'commons/errors', model: @stock %>
+
+<%= form_with model: @stock do |f| %>
+    <%= render 'form', f: f %>
+    <%= f.submit '登録' %>
+<% end %>
+
+<%= link_to '一覧へ戻る', stocks_path, class:"link-dark" %>

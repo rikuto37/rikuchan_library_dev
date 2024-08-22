@@ -11,7 +11,7 @@ class DocumentsController < ApplicationController
       @documents = @documents.where('name LIKE ?', "%#{name}%")
     end
     # if resign_date.present?
-    #   @users = @users.
+    #   @documents = @documents.
     # end
   end
   
@@ -38,7 +38,7 @@ class DocumentsController < ApplicationController
   
   def update
     @document = Document.find(params[:id])
-    if @user.update(document_params)
+    if @document.update(document_params)
       flash[:success] = '編集しました'
       redirect_to document_path(@document)
     else

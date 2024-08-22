@@ -21,6 +21,7 @@ class StocksController < ApplicationController
   
   def new
     @stock = Stock.new
+    @document = Document.find(params[:document_id])
   end
   
   def create

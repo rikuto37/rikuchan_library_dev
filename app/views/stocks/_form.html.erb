@@ -1,0 +1,27 @@
+<table border=1>
+    <tr>
+        <th>在庫ID</th>
+        <td><%= @stock.id %></td>
+    </tr>
+    <tr>
+        <th>ISBN番号</th>
+        <td><%= @document.isbn %></td>
+    </tr>
+    <tr>
+        <th>資料名</th>
+        <td><%= @document.name %></td>
+    </tr>
+    <tr>
+        <th>入荷年月日</th>
+        <td><%= f.date_field :arrival_date, value: @stock.arrival_date %></td>
+    </tr>
+    <tr>
+        <th>廃棄年月日</th>
+        <td><%= f.date_field :disposal_date, value: @stock.disposal_date %></td>
+    </tr>
+    <tr>
+        <th><%= f.label :comment, '備考' %></th>
+        <td><%= f.text_area :comment, value: @stock.comment %></td>
+    </tr>
+</table>
+<%= f.hidden_field :document_id, value: @document.id %>

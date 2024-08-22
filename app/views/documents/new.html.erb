@@ -1,2 +1,10 @@
-<h1>Documents#new</h1>
-<p>Find me in app/views/documents/new.html.erb</p>
+<% @document_title = "新規目録登録" %>
+
+<%= render 'commons/errors', model: @document %>
+
+<%= form_with model: @document do |f| %>
+    <%= render 'form', f: f %>
+    <%= f.submit '登録' %>
+<% end %>
+
+<%= link_to '一覧へ戻る', documents_path, class:"link-dark" %>

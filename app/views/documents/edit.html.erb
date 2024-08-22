@@ -1,2 +1,14 @@
-<h1>Documents#edit</h1>
-<p>Find me in app/views/documents/edit.html.erb</p>
+<% @document_title = "目録情報編集" %>
+
+<%= render 'commons/errors', model: @document %>
+<%= form_with model: @document do |f| %>
+    <%= render 'form', f: f %>
+    <p>
+        <%= f.submit '編集' %>
+    </p>
+<% end %>
+
+<p>
+    <%= link_to 'キャンセル', @document, class:"link-dark" %>
+    <%= link_to '一覧へ戻る', documents_path, class:"link-dark" %>
+</p>

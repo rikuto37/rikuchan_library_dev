@@ -1,2 +1,42 @@
-<h1>Documents#show</h1>
-<p>Find me in app/views/documents/show.html.erb</p>
+<% @document_title = "目録情報詳細" %>
+
+<table border=1>
+        <tr>
+            <th>目録ID</th>
+            <td><%= @document.id %></td>
+        </tr>
+        <tr>
+            <th>ISBN番号</th>
+            <td><%= @document.isbn %></td>
+        </tr>
+        <tr>
+            <th>資料名</th>
+            <td><%= @document.name %></td>
+        </tr>
+        <tr>
+            <th>分類コード</th>
+            <td><%= @document.category.category_code%></td>
+        </tr>
+        <tr>
+            <th>分類</th>
+            <td><%= @document.category.name%></td>
+        </tr>
+        <tr>
+            <th>著者</th>
+            <td><%= @document.author %></td>
+        </tr>
+        <tr>
+            <th>出版社</th>
+            <td><%= @document.publisher %></td>
+        </tr>
+        <tr>
+            <th>出版日</th>
+            <td><%= @document.published_on %></td>
+        </tr>
+</table>
+
+<%= link_to '在庫を新規登録する', new_stock_path(document_id: @document.id),  class:"link-dark" %>
+<%= link_to '編集', edit_document_path, class:"link-dark" %>
+<%= link_to '一覧へ戻る', documents_path, class:"link-dark" %>
+
+<p><%= button_to '削除', document_path(@document), method: :delete, onclick: "return confirm('削除しますか?')" %></p>

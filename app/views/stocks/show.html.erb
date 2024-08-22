@@ -1,2 +1,29 @@
-<h1>Stocks#show</h1>
-<p>Find me in app/views/stocks/show.html.erb</p>
+<% @document_title = "在庫情報詳細" %>
+
+<table border=1>
+    <tr>
+        <th>目録ID</th>
+        <td><%= @stock.document.id %></td>
+    </tr>
+    <tr>
+        <th>資料名</th>
+        <td><%= @stock.document.name %></td>
+    </tr>
+    <tr>
+        <th>入荷年月日</th>
+        <td><%= @stock.arrival_date %></td>
+    </tr>
+    <tr>
+        <th>廃棄年月日</th>
+        <td><%= @stock.disposal_date %></td>
+    </tr>
+    <tr>
+        <th>備考</th>
+        <td><%= @stock.comment%></td>
+    </tr>
+</table>
+
+<%= link_to '編集', edit_stock_path, class:"link-dark" %>
+<%= link_to '一覧へ戻る', stocks_path, class:"link-dark" %>
+
+<p><%= button_to '削除', stock_path(@stock), method: :delete, onclick: "return confirm('削除しますか?')" %></p>

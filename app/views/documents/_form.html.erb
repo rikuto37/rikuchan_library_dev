@@ -1,0 +1,30 @@
+<table border=1>
+        <tr>
+            <th>ID</th>
+            <td><%= @document.id %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :isbn, 'ISBN番号' %></th>
+            <td><%= f.text_field :isbn, value: @document.isbn %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :name, '資料名' %></th>
+            <td><%= f.text_field :name, value: @document.name %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :category_id, '分類' %></th>
+            <td><%= f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択してください'} %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :author, '著者' %></th>
+            <td><%= f.text_field :author, value: @document.author %></td>
+        </tr>
+        <tr>
+            <th><%= f.label :publisher, '出版社' %></th>
+            <td><%= f.text_field :publisher, value: @document.publisher %></td>
+        </tr>
+        <tr>
+            <th>出版日</th>
+            <td><%= f.date_field :published_on, value: @document.published_on %></td>
+        </tr>
+</table>

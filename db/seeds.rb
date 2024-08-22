@@ -5,6 +5,13 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+Admin.create(
+    name: '館長',
+    email: 'kanchou@shinjuku-library.jp',
+    password: 'himitudesu'
+)
+
 User.create(
     name: "山田太郎",
     post_code: "105-0011",
@@ -273,3 +280,46 @@ User.create(
     updated_at: "2024-08-20 12:30:00"
 )
 
+Category.create(
+    category_code: 0,
+    name: '総記'
+)
+
+Category.create(
+    category_code: 1,
+    name: '哲学'
+)
+
+Category.create(
+    category_code: 2,
+    name: '歴史'
+)
+
+Category.create(
+    category_code: 3,
+    name: '社会科学'
+)
+Category.create(
+    category_code: 4,
+    name: '自然科学'
+)
+Category.create(
+    category_code: 5,
+    name: '技術'
+)
+Category.create(
+    category_code: 6,
+    name: '産業'
+)
+Category.create(
+    category_code: 7,
+    name: '芸術'
+)
+Category.create(
+    category_code: 8,
+    name: '言語'
+)
+Category.create(
+    category_code: 9,
+    name: '文学'
+)

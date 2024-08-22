@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_logged_in
   def index
-    @users = User.order(:id)
+    @users = User.order(:id).page(params[:page]).per(15)
     id = params[:id]
     name = params[:name]
     # except_resigned = params[:resign_date]

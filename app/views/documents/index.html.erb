@@ -1,2 +1,54 @@
-<h1>Documents#index</h1>
-<p>Find me in app/views/documents/index.html.erb</p>
+<% @document_title = "目録情報一覧" %>
+
+
+<div class="row">
+    <div class="col-2">
+        <div class="left_fixed">
+            <h2 style="color:gray"><%= @document_title %></h2>
+            <%= form_with url: documents_path, method: :get do |f| %>
+            <p>
+                <%= f.text_field :id, value: params[:id], placeholder: "ID" %>
+            </p>
+            <p>
+                <%= f.text_field :name, value: params[:name], placeholder: "氏名" %>
+                <%= f.submit '検索', name: nil%>
+            </p>
+            <% end %>
+            <%= link_to '新規目録登録', new_document_path, class:"link-dark" %>
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="right">
+            <table class="table table-striped">
+                <tr>
+                    <th>目録ID</th>
+                    <th>ISBN番号</th>
+                    <th>資料名</th>
+                    <th>分類コード</th>
+                    <th>分類</th>
+                    <th>著者</th>
+                    <th>出版社</th>
+                    <th>出版日</th>
+                </tr>
+                <% @documents.each do |d| %>
+                    <tr>
+                        <td><%= d.id %></td>
+                        <td><%= d.isbn %></td>
+                        <td><%= link_to d.name, document_path(d), id: d.id, class:"link-primary" %></td>
+                        <td><%= d.category.category_code %></td>
+                        <td><%= d.category.name %></td>
+                        <td><%= d.author %></td>
+                        <td><%= d.publisher %></td>
+                        <td><%= d.published_on %></td>
+                    </tr>
+                <% end %>
+            </table>
+
+            <% if @documents.count == 0 %>
+            <div class="alert alert-primary d-flex align-items-center" role="alert">
+                該当する目録は見つかりません
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>

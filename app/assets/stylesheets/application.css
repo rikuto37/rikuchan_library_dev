@@ -37,3 +37,12 @@ nav a {
 nav button {
   margin-left: 5px;
 }
+
+.left_fixed {
+  position: sticky;
+  top: 100px;
+}
+
+td {
+  white-space: nowrap;
+}
