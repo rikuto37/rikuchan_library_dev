@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_21_023427) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_24_020355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_21_023427) do
     t.index ["category_id"], name: "index_documents_on_category_id"
   end
 
+  create_table "lendings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "stock_id", null: false
+    t.date "lent_date", null: false
+    t.date "due_date", null: false
+    t.date "return_date"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_id"], name: "index_lendings_on_stock_id"
+    t.index ["user_id"], name: "index_lendings_on_user_id"
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.bigint "document_id", null: false
     t.date "arrival_date"
@@ -65,5 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_21_023427) do
   end
 
   add_foreign_key "documents", "categories"
+  add_foreign_key "lendings", "stocks"
+  add_foreign_key "lendings", "users"
   add_foreign_key "stocks", "documents"
 end
