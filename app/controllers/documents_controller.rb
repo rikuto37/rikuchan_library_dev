@@ -1,15 +1,24 @@
 class DocumentsController < ApplicationController
   def index
-    @documents = Document.order(:id)
-    id = params[:id]
+    @documents = Document.order(:id).page(params[:page]).per(15)
+    isbn = params[:isbn]
     name = params[:name]
+    author = params[:author]
+    category_id = params[:category_id]
     # except_resigned = params[:resign_date]
-    if id.present?
-      @documents = @documents.where(id: id)
+    if isbn.present?
+      @documents = @documents.where(isbn: isbn)
     end
     if name.present?
       @documents = @documents.where('name LIKE ?', "%#{name}%")
     end
+    if author.present?
+      @documents = @documents.where('author LIKE ?', "%#{author}%")
+    end
+    if category_id.present?
+      @documents = @documents.where(category_id: category_id)
+    end
+
     # if resign_date.present?
     #   @documents = @documents.
     # end

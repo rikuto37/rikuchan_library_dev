@@ -1,0 +1,40 @@
+<div class="card-header">
+    <h3>
+        <%= @document_title %>
+    </h3>
+</div>
+
+<div class="card-body">
+    <div class="mb-3">
+        <div class="col-2">
+            会員ID:
+        </div>
+        <div class="col-10">
+            <%= @lending.user.id %>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-2">
+            氏名:
+        </div>
+        <div class="col-10">
+            <%= @lending.user.name %>
+        </div>
+    </div>
+    <div class="mb-3">
+        <%= f.label :stock_id, '資料ID' %>
+        <%= f.text_field :stock_id, class:"form-control", value: @lending.stock_id, placeholder:"123" %>
+    </div>
+    <div class="mb-3">
+        貸出年月日
+        <%= f.date_field :lent_date, class:"form-control", value: Time.now.strftime("%Y-%m-%d") %>
+    </div>
+    <div class="mb-3">
+        返却期日
+        <%= f.date_field :join_date, class:"form-control", value: @user.join_date %>
+    </div>
+    <div class="mb-3">
+        退会年月日
+        <%= f.date_field :resign_date, class:"form-control", value: @user.resign_date %>
+    </div>
+</div>

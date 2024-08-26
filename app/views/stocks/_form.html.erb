@@ -1,27 +1,49 @@
-<table border=1>
-    <tr>
-        <th>在庫ID</th>
-        <td><%= @stock.id %></td>
-    </tr>
-    <tr>
-        <th>ISBN番号</th>
-        <td><%= @document.isbn %></td>
-    </tr>
-    <tr>
-        <th>資料名</th>
-        <td><%= @document.name %></td>
-    </tr>
-    <tr>
-        <th>入荷年月日</th>
-        <td><%= f.date_field :arrival_date, value: @stock.arrival_date %></td>
-    </tr>
-    <tr>
-        <th>廃棄年月日</th>
-        <td><%= f.date_field :disposal_date, value: @stock.disposal_date %></td>
-    </tr>
-    <tr>
-        <th><%= f.label :comment, '備考' %></th>
-        <td><%= f.text_area :comment, value: @stock.comment %></td>
-    </tr>
-</table>
+<div class="card-header">
+    <h3>
+        <%= @document_title %>
+    </h3>
+</div>
+
+<div class="card-body">
+    <div class="mb-3 row">
+        <div class="col-2">
+            ISBN番号:
+        </div>
+        <div class="col-10">
+            <%= @document.isbn %>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div class="col-2">
+            資料名:
+        </div>
+        <div class="col-10">
+            <%= @document.name %>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-2">
+            <%= f.label :arrival_date, '入荷年月日', class:"form-label" %>
+        </div>
+        <div class="col-10">
+            <%= f.date_field :arrival_date, class:"form-control", value: @stock.arrival_date %>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-2">
+            <%= f.label :disposal_date, '廃棄年月日', class:"form-label" %>
+        </div>
+        <div class="col-10">
+            <%= f.date_field :disposal_date, class:"form-control", value: @stock.disposal_date %>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="col-2">
+            <%= f.label :comment, '備考' %>
+        </div>
+        <div class="col-10">
+            <%= f.text_area :comment, class:"form-control", value: @stock.comment, placeholder:"コメントを入力(任意)" %>
+        </div>
+    </div>
+</div>
 <%= f.hidden_field :document_id, value: @document.id %>

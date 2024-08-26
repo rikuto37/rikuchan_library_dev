@@ -1,20 +1,21 @@
 class StocksController < ApplicationController
   def index
-    @stocks = Stock.order(:id)
+    @stocks = Stock.eager_load(:document).order(:id).page(params[:page]).per(15)
     id = params[:id]
+    isbn= params[:isbn]
     name = params[:name]
-    # except_resigned = params[:resign_date]
+   
     if id.present?
-      @stocks = @stocks.where(id: id)
+     @stocks = @stocks.where(id: id)
+    end
+    if isbn.present?
+      @stocks = @stocks.where('documents.isbn = ?', isbn)
     end
     if name.present?
-      @stocks = @stocks.where('name LIKE ?', "%#{name}%")
+      @stocks = @stocks.where('documents.name LIKE ?', "%#{name}%")
     end
-    # if resign_date.present?
-    #   @users = @users.
-    # end
   end
-  
+
   def show
     @stock = Stock.find(params[:id])
   end
@@ -35,6 +36,7 @@ class StocksController < ApplicationController
   end
   def edit
     @stock = Stock.find(params[:id])
+    @document = @stock.document
   end
   
   def update
@@ -43,6 +45,7 @@ class StocksController < ApplicationController
       flash[:success] = '編集しました'
       redirect_to stock_path(@stock)
     else
+      @document = @stock.document
       render 'edit', status: :unprocessable_entity
     end
   end

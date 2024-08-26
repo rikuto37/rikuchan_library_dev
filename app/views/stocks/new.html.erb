@@ -1,10 +1,14 @@
 <% @document_title = "新規在庫登録" %>
 
-<%= render 'commons/errors', model: @stock %>
+<div class="card">
+    <%= render 'commons/errors', model: @stock %>
 
-<%= form_with model: @stock do |f| %>
-    <%= render 'form', f: f %>
-    <%= f.submit '登録' %>
-<% end %>
-
-<%= link_to '一覧へ戻る', stocks_path, class:"link-dark" %>
+    <div class="card container">
+        <%= form_with model: @stock do |f| %>
+            <%= render 'form', f: f %>
+            <div class="card-footer">
+            <%= f.submit '登録', class:"btn btn-danger" %>
+            <%= link_to '在庫一覧へ', stocks_path, class:"btn btn-link" %>
+        <% end %>
+    </div>
+</div>

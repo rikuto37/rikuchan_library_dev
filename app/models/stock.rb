@@ -3,4 +3,5 @@ class Stock < ApplicationRecord
   validates :arrival_date, presence: true
 
   belongs_to :document
+  has_many :lendings
 end

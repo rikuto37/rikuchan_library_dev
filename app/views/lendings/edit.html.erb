@@ -1,0 +1,58 @@
+<% @document_title = "貸出情報編集" %>
+
+<div class="card">
+    <%= render 'commons/errors', model: @lending %>
+
+    <div class="card container">
+
+        <div class="card-header">
+            <h3>
+                <%= @document_title %>
+            </h3>
+        </div>
+
+        <%= form_with model: @lending do |f| %>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="col-2">
+                        会員ID:
+                    </div>
+                    <div class="col-10">
+                        <%= @user.id %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-2">
+                        氏名:
+                    </div>
+                    <div class="col-10">
+                        <%= @user.name %>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <%= f.label :stock_id, '資料ID' %>
+                    <%= f.text_field :stock_id, class:"form-control", value: @lending.stock_id %>
+                </div>
+                <div class="mb-3">
+                    貸出年月日
+                    <%= f.date_field :lent_date, class:"form-control", value: @lending.lent_date %>
+                </div>
+                <div class="mb-3">
+                    <%= f.label :comment, '備考' %>
+                    <%= f.text_field :comment, class:"form-control", value: @lending.comment, placeholder: "コメントを記入(任意)" %>
+                </div>
+            </div>        
+
+            <div class="card-footer">
+                 <div class="card-footer">
+                    <%= f.submit '編集を確定', class:"btn btn-primary" %>
+                    <%= link_to 'キャンセル', @lending, class:"btn btn-sm btn-outline-dark" %>
+                    <%= link_to '一覧へ戻る', lendings_path, class:"btn btn-link" %>
+                </div>
+            </div>
+
+            <%= f.hidden_field :user_id, value: @user.id %>
+        <% end %>
+    </div>
+</div>
+

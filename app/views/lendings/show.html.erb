@@ -1,6 +1,6 @@
-<% @document_title = "目録情報詳細" %>
+<% @document_title = "貸出情報詳細" %>
 
-<div class="card container">
+<div class="card">
     <div class="card-header">
         <%= @document_title %>
     </div>
@@ -8,18 +8,26 @@
     <div class="card-body">
         <div class="mb-3 row">
             <div class="col-2">
-                目録ID:
+                会員ID:
             </div>
             <div class="col-10">
-                <%= @document.id %>
+                <%= @lending.user_id %>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-2">
-                ISBN番号:
+                氏名:
             </div>
             <div class="col-10">
-                <%= @document.isbn %>
+                <%= @lending.user.name %>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                資料ID:
+            </div>
+            <div class="col-10">
+                <%= @lending.stock_id %>
             </div>
         </div>
         <div class="mb-3 row">
@@ -27,47 +35,39 @@
                 資料名:
             </div>
             <div class="col-10">
-                <%= @document.name %>
+                <%= @lending.stock.document.name %>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-2">
-                分類コード:
+                貸出年月日:
             </div>
             <div class="col-10">
-                <%= @document.category.category_code %>
+                <%= @lending.lent_date %>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-2">
-                分類:
+                返却期日:
             </div>
             <div class="col-10">
-                <%= @document.category.name %>
+                <%= @lending.due_date %>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-2">
-                著者:
+                返却年月日:
             </div>
             <div class="col-10">
-                <%= @document.author %>
+                <%= @lending.return_date %>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="col-2">
-                出版社:
+                備考:
             </div>
             <div class="col-10">
-                <%= @document.publisher %>
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <div class="col-2">
-                出版日:
-            </div>
-            <div class="col-10">
-                <%= @document.published_on %>
+                <%= @lending.comment %>
             </div>
         </div>
     </div>
@@ -75,13 +75,10 @@
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
-                <%= link_to '在庫を新規登録する', new_stock_path(document_id: @document.id), class:"btn btn-sm btn-outline-danger" %>
-                <%= link_to '編集する', edit_document_path, class:"btn  btn-sm btn-outline-primary" %>
-                <%= link_to '一覧へ戻る', documents_path, class:"btn btn-link" %>
+                <%= link_to '編集する', edit_lending_path, class:"btn  btn-sm btn-outline-primary" %>
+                <%= link_to '一覧へ戻る', lendings_path, class:"btn btn-link" %>
             </div>
-            <%= button_to '誤登録情報を削除', document_path(@document), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
+            <%= button_to '誤登録情報を削除', lending_path(@lending), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
         </div>
     </div>
 </div>
-
-

@@ -1,42 +1,57 @@
 <% @document_title = "在庫情報一覧" %>
 
 <div class="row">
-    <div class="col-2">
+    <div class="col-3">
         <div class="left_fixed">
-            <h2 style="color:gray"><%= @document_title %></h2>
-            <%= form_with url: stocks_path, method: :get do |f| %>
-            <p>
-                <%= f.text_field :id, value: params[:id], placeholder: "ID" %>
-            </p>
-            <p>
-                <%= f.text_field :name, value: params[:name], placeholder: "氏名" %>
-                <%= f.submit '検索', name: nil%>
-            </p>
-            <% end %>
+            <div class="card">
+                <%= form_with url: stocks_path, method: :get do |f| %>
+                    <div class="card-header">検索フォーム</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <%= f.text_field :id, value: params[:id], class:"form-control", placeholder: "資料ID" %>
+                        </div>
+                        <div class="mb-3">
+                            <%= f.text_field :isbn, value: params[:isbn], class:"form-control", placeholder: "ISBN番号" %>
+                        </div>                            
+                        <div class="mb-3">
+                            <%= f.text_field :name, value: params[:name], class:"form-control", placeholder: "資料名" %>
+                        </div>                            
+                    </div>
+                    <div class="card-footer">
+                        <%= f.submit '検索', name: nil, class:"btn btn-success w-100" %>
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
-    <div class="col-10">
+
+    <div class="col-9">
         <div class="right">
-            <table class="table table-striped">
-                <tr>
-                    <th>資料ID</th>
-                    <th>ISBN番号</th>
-                    <th>資料名</th>
-                    <th>入荷年月日</th>
-                    <th>廃棄年月日</th>
-                    <th>備考</th>
-                </tr>
-                <% @stocks.each do |s| %>
+            <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
+                <h1 class="h3"><%= @document_title %></h1>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
                     <tr>
-                        <td><%= s.id %></td>
-                        <td><%= s.document.isbn %></td>
-                        <td><%= link_to s.document.name, stock_path(s), id: s.id, class:"link-primary" %></td>
-                        <td><%= s.arrival_date %></td>
-                        <td><%= s.disposal_date %></td>
-                        <td><%= s.comment %></td>
+                        <th>資料ID</th>
+                        <th>ISBN番号</th>
+                        <th>資料名</th>
+                        <th>入荷年月日</th>
+                        <th>廃棄年月日</th>
+                        <th>備考</th>
                     </tr>
-                <% end %>
-            </table>
+                    <% @stocks.each do |s| %>
+                        <tr>
+                            <td><%= s.id %></td>
+                            <td><%= s.document.isbn %></td>
+                            <td><%= link_to s.document.name, stock_path(s), id: s.id, class:"link-primary" %></td>
+                            <td><%= s.arrival_date %></td>
+                            <td><%= s.disposal_date %></td>
+                            <td><%= s.comment %></td>
+                        </tr>
+                    <% end %>
+                </table>
+                <%= paginate @stocks, theme: 'bootstrap-5' %>
 
             <% if @stocks.count == 0 %>
             <div class="alert alert-primary d-flex align-items-center" role="alert">

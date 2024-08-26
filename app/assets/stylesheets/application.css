@@ -43,6 +43,6 @@ nav button {
   top: 100px;
 }
 
-td {
+td,th {
   white-space: nowrap;
 }

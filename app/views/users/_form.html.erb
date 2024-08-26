@@ -1,38 +1,40 @@
-<table border=1>
-        <tr>
-            <th>ID</th>
-            <td><%= @user.id %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :name, '氏名' %></th>
-            <td><%= f.text_field :name, value: @user.name %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :post_code, '郵便番号' %></th>
-            <td><%= f.text_field :post_code, value: @user.post_code %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :address, '住所' %></th>
-            <td><%= f.text_field :address, value: @user.address %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :tel_number, '電話番号' %></th>
-            <td><%= f.text_field :tel_number, value: @user.tel_number %></td>
-        </tr>
-        <tr>
-            <th><%= f.label :email, 'E-mail' %></th>
-            <td><%= f.text_field :email, value: @user.email %></td>
-        </tr>
-        <tr>
-            <th>生年月日</th>
-            <td><%= f.date_field :birth_date, value: @user.birth_date %></td>
-        </tr>
-        <tr>
-            <th>入会年月日</th>
-            <td><%= f.date_field :join_date, value: @user.join_date %></td>
-        </tr>
-        <tr>
-            <th>退会年月日</th>
-            <td><%= f.date_field :resign_date, value: @user.resign_date %></td>
-        </tr>
-</table>
+<div class="card-header">
+    <h3>
+        <%= @document_title %>
+    </h3>
+</div>
+
+<div class="card-body">
+    <div class="mb-3">
+        <%= f.label :name, '氏名', class:"form-label" %>
+        <%= f.text_field :name, class:"form-control", value: @user.name, placeholder:"新宿太郎" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :post_code, '郵便番号' %>
+        <%= f.text_field :post_code, class:"form-control", value: @user.post_code, placeholder:"000-0000" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :address, '住所' %>
+        <%= f.text_field :address, class:"form-control", value: @user.address, placeholder:"東京都新宿区1丁目1-1" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :tel_number, '電話番号' %>
+        <%= f.text_field :tel_number, class:"form-control", value: @user.tel_number, placeholder:"012-345-6789" %>
+    </div>
+    <div class="mb-3">
+        <%= f.label :email, 'E-mail' %>
+        <%= f.text_field :email, class:"form-control", value: @user.email, placeholder:"name@example.com" %>
+    </div>
+    <div class="mb-3">
+        生年月日
+        <%= f.date_field :birth_date, class:"form-control", value: @user.birth_date %>
+    </div>
+    <div class="mb-3">
+        入会年月日
+        <%= f.date_field :join_date, class:"form-control", value: @user.join_date %>
+    </div>
+    <div class="mb-3">
+        退会年月日
+        <%= f.date_field :resign_date, class:"form-control", value: @user.resign_date %>
+    </div>
+</div>

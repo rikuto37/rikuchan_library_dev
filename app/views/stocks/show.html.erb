@@ -1,29 +1,60 @@
 <% @document_title = "在庫情報詳細" %>
 
-<table border=1>
-    <tr>
-        <th>目録ID</th>
-        <td><%= @stock.document.id %></td>
-    </tr>
-    <tr>
-        <th>資料名</th>
-        <td><%= @stock.document.name %></td>
-    </tr>
-    <tr>
-        <th>入荷年月日</th>
-        <td><%= @stock.arrival_date %></td>
-    </tr>
-    <tr>
-        <th>廃棄年月日</th>
-        <td><%= @stock.disposal_date %></td>
-    </tr>
-    <tr>
-        <th>備考</th>
-        <td><%= @stock.comment%></td>
-    </tr>
-</table>
+<div class="card">
+    <div class="card-header">
+        <%= @document_title %>
+    </div>
 
-<%= link_to '編集', edit_stock_path, class:"link-dark" %>
-<%= link_to '一覧へ戻る', stocks_path, class:"link-dark" %>
+    <div class="card-body">
+        <div class="mb-3 row">
+            <div class="col-2">
+                ISBN番号:
+            </div>
+            <div class="col-10">
+                <%= @stock.document.isbn %>
+            </div>
+        </div>        
+        <div class="mb-3 row">
+            <div class="col-2">
+                資料名:
+            </div>
+            <div class="col-10">
+                <%= @stock.document.name %>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                入荷年月日:
+            </div>
+            <div class="col-10">
+                <%= @stock.arrival_date %>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                廃棄年月日:
+            </div>
+            <div class="col-10">
+                <%= @stock.disposal_date %>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-2">
+                備考:
+            </div>
+            <div class="col-10">
+                <%= @stock.comment %>
+            </div>
+        </div>
+    </div>
 
-<p><%= button_to '削除', stock_path(@stock), method: :delete, onclick: "return confirm('削除しますか?')" %></p>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                <%= link_to '編集する', edit_stock_path, class:"btn  btn-sm btn-outline-primary" %>
+                <%= link_to '在庫一覧へ', stocks_path, class:"btn btn-link" %>
+            </div>
+            <%= button_to '誤登録情報を削除', stock_path(@stock), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
+        </div>
+    </div>
+</div>

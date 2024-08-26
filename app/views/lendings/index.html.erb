@@ -1,10 +1,10 @@
-<% @document_title = "会員情報一覧" %>
+<% @document_title = "貸出情報一覧" %>
 
 <div class="row">
     <div class="col-3">
         <div class="left_fixed">
             <div class="card">
-                <%= form_with url: users_path, method: :get do |f| %>
+                <%= form_with url: lendings_path, method: :get do |f| %>
                     <div class="card-header">検索フォーム</div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -25,41 +25,39 @@
         <div class="right">
             <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
                 <h1 class="h3"><%= @document_title %></h1>
-                <%= link_to '新規会員登録', new_user_path, class:"btn btn-sm btn-outline-danger" %>
+                <%= link_to '新規貸出登録', new_lending_path, class:"btn btn-sm btn-outline-danger" %>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <tr>
-                        <th>ID</th>
+                        <th>会員ID</th>
                         <th>氏名</th>
-                        <th>郵便番号</th>
-                        <th>住所</th>
-                        <th>電話番号</th>
-                        <th>E-mail</th>
-                        <th>生年月日</th>
-                        <th>入会年月日</th>
-                        <th>退会年月日</th>
+                        <th>資料ID</th>
+                        <th>資料名</th>
+                        <th>貸出年月日</th>
+                        <th>返却期日</th>
+                        <th>返却年月日</th>
+                        <th>備考</th>
                     </tr>
-                    <% @users.each do |u| %>
+                    <% @lendings.each do |l| %>
                         <tr>
-                            <td><%= u.id %></td>
-                            <td><%= link_to u.name, user_path(u), id: u.id, class:"link-primary" %></td>
-                            <td><%= u.post_code %></td>
-                            <td><%= u.address %></td>
-                            <td><%= u.tel_number %></td>
-                            <td><%= u.email %></td>
-                            <td><%= u.birth_date %></td>
-                            <td><%= u.join_date %></td>
-                            <td><%= u.resign_date %></td>
+                            <td><%= l.user_id %></td>
+                            <td><%= link_to l.user.name, user_path(l.user_id), method: :get, class:"link-primary" %></td>
+                            <td><%= l.stock_id %></td>
+                            <td><%= link_to l.stock.document.name, lending_path(l.id), method: :get, class:"link-primary" %></td>
+                            <td><%= l.lent_date %></td>
+                            <td><%= l.due_date %></td>
+                            <td><%= l.return_date %></td>
+                            <td><%= l.comment %></td>
                         </tr>
                     <% end %>
                 </table>
-                <%= paginate @users, theme: 'bootstrap-5' %>
+                <%= paginate @lendings, theme: 'bootstrap-5' %>
             </div>
 
-            <% if @users.count == 0 %>
+            <% if @lendings.count == 0 %>
             <div class="alert alert-primary d-flex align-items-center" role="alert">
-                該当する会員は見つかりません
+                該当する貸出記録は見つかりません
             </div>
             <% end %>
         </div>

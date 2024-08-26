@@ -74,3 +74,4 @@ group :test do
 end
 
 gem 'kaminari'
+gem 'bootstrap5-kaminari-views'

@@ -2,47 +2,64 @@
 
 
 <div class="row">
-    <div class="col-2">
+    <div class="col-3">
         <div class="left_fixed">
-            <h2 style="color:gray"><%= @document_title %></h2>
-            <%= form_with url: documents_path, method: :get do |f| %>
-            <p>
-                <%= f.text_field :id, value: params[:id], placeholder: "ID" %>
-            </p>
-            <p>
-                <%= f.text_field :name, value: params[:name], placeholder: "氏名" %>
-                <%= f.submit '検索', name: nil%>
-            </p>
-            <% end %>
-            <%= link_to '新規目録登録', new_document_path, class:"link-dark" %>
+            <div class="card">
+                <%= form_with url: documents_path, method: :get do |f| %>
+                    <div class="card-header">検索フォーム</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <%= f.text_field :isbn, value: params[:isbn], class:"form-control", placeholder: "ISBN番号" %>
+                        </div>
+                        <div class="mb-3">
+                            <%= f.text_field :name, value: params[:name], class:"form-control", placeholder: "資料名" %>
+                        </div>                            
+                        <div class="mb-3">
+                            <%= f.text_field :author, value: params[:author], class:"form-control", placeholder: "著者" %>
+                        </div>    
+                        <div class="mb-3">
+                            分類
+                            <%= f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択してください', selected: params[:category_id]}, class:"form-control" %>
+                        </div>    
+                    </div>
+                    <div class="card-footer">
+                        <%= f.submit '検索', name: nil, class:"btn btn-success w-100" %>
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
-    <div class="col-10">
+    <div class="col-9">
         <div class="right">
-            <table class="table table-striped">
-                <tr>
-                    <th>目録ID</th>
-                    <th>ISBN番号</th>
-                    <th>資料名</th>
-                    <th>分類コード</th>
-                    <th>分類</th>
-                    <th>著者</th>
-                    <th>出版社</th>
-                    <th>出版日</th>
-                </tr>
-                <% @documents.each do |d| %>
+            <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
+                <h1 class="h3"><%= @document_title %></h1>
+                <%= link_to '新規目録登録', new_document_path, class:"btn btn-sm btn-outline-danger" %>
+            </div>                
+            <div class="table-responsive">
+                <table class="table table-striped">
                     <tr>
-                        <td><%= d.id %></td>
-                        <td><%= d.isbn %></td>
-                        <td><%= link_to d.name, document_path(d), id: d.id, class:"link-primary" %></td>
-                        <td><%= d.category.category_code %></td>
-                        <td><%= d.category.name %></td>
-                        <td><%= d.author %></td>
-                        <td><%= d.publisher %></td>
-                        <td><%= d.published_on %></td>
+                        <th>目録ID</th>
+                        <th>ISBN番号</th>
+                        <th>資料名</th>
+                        <th>分類</th>
+                        <th>著者</th>
+                        <th>出版社</th>
+                        <th>出版日</th>
                     </tr>
-                <% end %>
-            </table>
+                    <% @documents.each do |d| %>
+                        <tr>
+                            <td><%= d.id %></td>
+                            <td><%= d.isbn %></td>
+                            <td><%= link_to d.name, document_path(d), id: d.id, class:"link-primary" %></td>
+                            <td><%= d.category.category_code %>:<%= d.category.name %></td>
+                            <td><%= d.author %></td>
+                            <td><%= d.publisher %></td>
+                            <td><%= d.published_on %></td>
+                        </tr>
+                    <% end %>
+                </table>
+                <%= paginate @documents, theme: 'bootstrap-5' %>
+            </div>
 
             <% if @documents.count == 0 %>
             <div class="alert alert-primary d-flex align-items-center" role="alert">

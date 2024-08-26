@@ -1,10 +1,15 @@
 <% @document_title = "新規会員登録" %>
 
-<%= render 'commons/errors', model: @user %>
+<div class="card">
+    <%= render 'commons/errors', model: @user %>
 
-<%= form_with model: @user do |f| %>
-    <%= render 'form', f: f %>
-    <%= f.submit '登録' %>
-<% end %>
-
-<%= link_to '一覧へ戻る', users_path, class:"link-dark" %>
+    <div class="card container">
+        <%= form_with model: @user do |f| %>
+            <%= render 'form', f: f %>
+            <div class="card-footer">
+                <%= f.submit '登録', class:"btn btn-danger" %>
+                <%= link_to '一覧へ戻る', users_path, class:"btn btn-link" %>
+            </div>
+        <% end %>
+    </div>
+</div>
