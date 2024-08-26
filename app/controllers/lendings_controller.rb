@@ -39,6 +39,25 @@ class LendingsController < ApplicationController
   end
 
   def edit
+    @lending = Lending.find(params[:id])
+    @user = @lending.user
+  end
+  
+  def update
+    @lending = Lending.find(params[:id])
+    if @lending.update(lending_params)
+      flash[:success] = '編集しました'
+      redirect_to lending_path(@lending)
+    else
+      @user = @lending.user
+      render 'edit', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @lending = Lending.find(params[:id])
+    @lending.destroy
+    redirect_to lendings_path
   end
 
   private
