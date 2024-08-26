@@ -10,6 +10,6 @@ class Document < ApplicationRecord
   has_many :stocks
   
   def published_within_3months?
-    published_on > 3.months.ago
+    published_on >= 3.months.ago
   end
 end

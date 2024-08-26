@@ -25,10 +25,16 @@ class LendingsController < ApplicationController
   end
 
   def create
-    due_date = "2024-8-30"
+    binding.break
+    @stock = Stock.find_by(id: params[:lending][:stock_id])
+    @document = @stock.document
+    if @document.published_within_3months?
+      due_date = Date.today + 10
+    else
+      due_date = Date.today + 15
+    end
     params[:lending][:due_date] = due_date
     @lending = Lending.new(lending_params)
-    binding.break
     if @lending.save
       flash[:success] = '登録できました'
       redirect_to lending_path(@lending)
