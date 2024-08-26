@@ -49,10 +49,13 @@
             <button class="btn btn-sm btn-dark dropdown-toggle" data-bs-toggle="dropdown">
               管理
             </button>
+
+              <li><%= link_to 'ログアウト', logout_path, method: :delete, class: "navbar-link" %></li>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a href="" class="dropdown-item">アカウント照会</a></li>
               <li class="dropdown-divider"></li>
-              <li><a href="" class="dropdown-item">ログアウト</a></li>
+              <li><%= link_to 'ログアウト', logout_path, method: :delete, class: "dropdown-item" %></li>
+              <%#<li><a href="/logout"  class="dropdown-item">ログアウト</a></li>%>
             </ul>
           </div>
         

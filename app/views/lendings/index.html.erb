@@ -6,17 +6,22 @@
             <div class="card">
                 <%= form_with url: lendings_path, method: :get do |f| %>
                     <div class="card-header">検索フォーム</div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <%= f.text_field :id, value: params[:id], class:"form-control", placeholder: "ID" %>
-                        </div>
-                        <div class="mb-3">
-                            <%= f.text_field :name, value: params[:name], class:"form-control", placeholder: "氏名" %>
-                        </div>                                                     
-                    </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <%= f.text_field :usr_id, value: params[:user_id], class:"form-control", placeholder: "会員ID" %>
+                            </div>                                                
+                            <div class="mb-3">
+                                <%= f.text_field :stock_id, value: params[:stock_id], class:"form-control", placeholder: "資料ID" %>
+                            </div>
+                            <div class="mb-3">
+                                超過一覧
+                                <%= f.select :count_overdue_days, [["全会員", "all_overdue_users"], ["10日以上29日以内", "between_10_and_30"], ["30日以上", "over_30"]],  { include_blank: '選択してください', value: params[:count_overdue_days]}, class:"form-control" %>
+                            </div>
+                        </div> 
                     <div class="card-footer">
                         <%= f.submit '検索', name: nil, class:"btn btn-success w-100" %>
                     </div>
+                    
                 <% end %>
             </div>
         </div>
@@ -25,7 +30,6 @@
         <div class="right">
             <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
                 <h1 class="h3"><%= @document_title %></h1>
-                <%= link_to '新規貸出登録', new_lending_path, class:"btn btn-sm btn-outline-danger" %>
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -33,21 +37,29 @@
                         <th>会員ID</th>
                         <th>氏名</th>
                         <th>資料ID</th>
-                        <th>資料名</th>
+                        <th>貸出資料名</th>
                         <th>貸出年月日</th>
                         <th>返却期日</th>
                         <th>返却年月日</th>
+                        <th>超過日数</th>
                         <th>備考</th>
                     </tr>
                     <% @lendings.each do |l| %>
                         <tr>
-                            <td><%= l.user_id %></td>
-                            <td><%= link_to l.user.name, user_path(l.user_id), method: :get, class:"link-primary" %></td>
+                            <td><%= link_to l.user_id, user_path(l.user_id), method: :get, class:"link-primary" %></td>
+                            <td><%= l.user.name %></td>
                             <td><%= l.stock_id %></td>
                             <td><%= link_to l.stock.document.name, lending_path(l.id), method: :get, class:"link-primary" %></td>
                             <td><%= l.lent_date %></td>
                             <td><%= l.due_date %></td>
                             <td><%= l.return_date %></td>
+                            <td>
+                                <% if l.is_overdue? %>
+                                    <%= (Date.today - l.due_date).to_i %>
+                                <% else %>
+                                    <%= ''%>
+                                <% end %>
+                                </td>
                             <td><%= l.comment %></td>
                         </tr>
                     <% end %>

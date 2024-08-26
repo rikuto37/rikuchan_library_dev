@@ -35,7 +35,7 @@
                 </div>
                 <div class="mb-3">
                     貸出年月日
-                    <%= f.date_field :lent_date, class:"form-control", value: Time.now.strftime("%Y-%m-%d") %>
+                    <%= f.date_field :lent_date, class:"form-control", value: @lending.lent_date %>
                 </div>
                 <div class="mb-3">
                     <%= f.label :comment, '備考' %>
