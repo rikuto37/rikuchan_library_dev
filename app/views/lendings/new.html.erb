@@ -11,44 +11,26 @@
             </h3>
         </div>
 
-        <%= form_with model: @lending do |f| %>
+        <%= form_with model: @lending, url: confirm_path, method: :get do |f| %>
             <div class="card-body">
                 <div class="mb-3">
-                    <div class="col-2">
-                        会員ID:
-                    </div>
-                    <div class="col-10">
-                        <%= @user.id %>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="col-2">
-                        氏名:
-                    </div>
-                    <div class="col-10">
-                        <%= @user.name %>
-                    </div>
+                    <%= f.label :user_id, '会員ID' %>
+                    <%= f.text_field :user_id, class:"form-control w-auto", value: @lending.user_id, placeholder:"(例)123" %>
                 </div>
                 <div class="mb-3">
                     <%= f.label :stock_id, '資料ID' %>
-                    <%= f.text_field :stock_id, class:"form-control", value: @lending.stock_id, placeholder:"123" %>
+                    <%= f.text_field :stock_id, class:"form-control w-auto", value: @lending.stock_id, placeholder:"(例)123" %>
                 </div>
                 <div class="mb-3">
                     貸出年月日
-                    <%= f.date_field :lent_date, class:"form-control", value: @lending.lent_date %>
-                </div>
-                <div class="mb-3">
-                    <%= f.label :comment, '備考' %>
-                    <%= f.text_field :comment, class:"form-control", value: @lending.comment, placeholder: "コメントを記入(任意)" %>
+                    <%= f.date_field :lent_date, class:"form-control w-auto", value: @lending.lent_date || Date.today %>
                 </div>
             </div>        
 
             <div class="card-footer">
                 <%= f.submit '登録', class:"btn btn-danger" %>
                 <%= link_to '一覧へ戻る', lendings_path, class:"btn btn-link" %>
-            </div>
-
-            <%= f.hidden_field :user_id, value: @user.id %>
+            </div>   
         <% end %>
     </div>
 </div>

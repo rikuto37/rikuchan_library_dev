@@ -26,7 +26,7 @@
             <%= f.label :arrival_date, '入荷年月日', class:"form-label" %>
         </div>
         <div class="col-10">
-            <%= f.date_field :arrival_date, class:"form-control", value: @stock.arrival_date %>
+            <%= f.date_field :arrival_date, class:"form-control w-auto", value: @stock.arrival_date || Date.today %>
         </div>
     </div>
     <div class="mb-3">
@@ -34,7 +34,7 @@
             <%= f.label :disposal_date, '廃棄年月日', class:"form-label" %>
         </div>
         <div class="col-10">
-            <%= f.date_field :disposal_date, class:"form-control", value: @stock.disposal_date %>
+            <%= f.date_field :disposal_date, class:"form-control w-auto", value: @stock.disposal_date %>
         </div>
     </div>
     <div class="mb-3">
