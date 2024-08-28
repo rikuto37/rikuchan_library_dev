@@ -35,7 +35,7 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(document_params)
     if @document.save
-      flash[:success] = '登録できました'
+      flash[:success] = '登録しました'
       redirect_to document_path(@document)
     else
       render 'new', status: :unprocessable_entity
@@ -58,6 +58,7 @@ class DocumentsController < ApplicationController
   def destroy
     @document = Document.find(params[:id])
     @document.destroy
+    flash[:success] = '削除しました'
     redirect_to documents_path
   end
 

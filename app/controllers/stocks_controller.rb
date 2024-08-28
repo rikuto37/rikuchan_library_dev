@@ -28,7 +28,7 @@ class StocksController < ApplicationController
   def create
     @stock = Stock.new(stock_params)
     if @stock.save
-      flash[:success] = '登録できました'
+      flash[:success] = '登録しました'
       redirect_to stock_path(@stock)
     else
       render 'new', status: :unprocessable_entity
@@ -53,6 +53,7 @@ class StocksController < ApplicationController
   def destroy
     @stock = Stock.find(params[:id])
     @stock.destroy
+    flash[:success] = '削除しました'
     redirect_to stocks_path
   end
 
