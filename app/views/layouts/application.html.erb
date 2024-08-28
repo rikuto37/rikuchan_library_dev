@@ -18,25 +18,16 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href=/users>会員管理</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                会員管理
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/users">会員一覧</a></li>
-                <li><a class="dropdown-item" href="/users/new">新規会員登録</a></li>
-              </ul>
+              <a class="nav-link" href=/users>会員台帳</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href=/documents>目録管理</a>
+              <a class="nav-link" href=/documents>資料目録</a>
             </li>              
             <li class="nav-item">
-              <a class="nav-link" href=/stocks>在庫管理</a>
+              <a class="nav-link" href=/stocks>在庫台帳</a>
             </li>              
             <li class="nav-item">
-              <a class="nav-link" href="/lendings">貸出・返却</a>
+              <a class="nav-link" href="/lendings">貸出台帳</a>
             </li>              
             <li class="nav-item">
               <a class="nav-link" href="#">予約</a>
@@ -50,11 +41,10 @@
               管理
             </button>
 
-              <li><%= link_to 'ログアウト', logout_path, method: :delete, class: "navbar-link" %></li>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a href="" class="dropdown-item">アカウント照会</a></li>
               <li class="dropdown-divider"></li>
-              <li><%= link_to 'ログアウト', logout_path, method: :delete, class: "dropdown-item" %></li>
+              <li><%= button_to 'ログアウト', logout_path, method: :delete, class: "dropdown-item" %></li>
               <%#<li><a href="/logout"  class="dropdown-item">ログアウト</a></li>%>
             </ul>
           </div>

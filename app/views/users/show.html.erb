@@ -75,7 +75,7 @@
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
-                <%= link_to '新規貸出登録', new_lending_path(user_id: @user.id), class:"btn btn-sm btn-outline-danger" %>
+                <%= link_to '新規貸出登録', new_lending_path(user_id: @user.id), user_id: @user.id, class:"btn btn-sm btn-outline-danger" %>
                 <%= link_to '編集する', edit_user_path, class:"btn  btn-sm btn-outline-primary" %>
                 <%= link_to '一覧へ戻る', users_path, class:"btn btn-link" %>
             </div>
