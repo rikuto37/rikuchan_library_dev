@@ -29,7 +29,7 @@
     <div class="col-9">
         <div class="right">
             <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
-                <h1 class="h3"><%= @document_title %></h1>
+                <h1 class="h3"><%= @document_title %>(<%= @lendings.page.count %>件)</h1>
                 <%= link_to '新規貸出登録', new_lending_path, class:"btn btn-sm btn-outline-danger" %>
             </div>
             <div class="table-responsive">
