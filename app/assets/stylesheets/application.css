@@ -46,3 +46,7 @@ nav button {
 td,th {
   white-space: nowrap;
 }
+
+.table-responsive tbody tr{
+  cursor: pointer;
+}

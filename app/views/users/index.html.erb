@@ -28,31 +28,35 @@
                 <%= link_to '新規会員登録', new_user_path, class:"btn btn-sm btn-outline-danger" %>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped">
-                    <tr>
-                        <th>ID</th>
-                        <th>氏名</th>
-                        <th>郵便番号</th>
-                        <th>住所</th>
-                        <th>電話番号</th>
-                        <th>E-mail</th>
-                        <th>生年月日</th>
-                        <th>入会年月日</th>
-                        <th>退会年月日</th>
-                    </tr>
-                    <% @users.each do |u| %>
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <td><%= u.id %></td>
-                            <td><%= link_to u.name, user_path(u), id: u.id, class:"link-primary" %></td>
-                            <td><%= u.post_code %></td>
-                            <td><%= u.address %></td>
-                            <td><%= u.tel_number %></td>
-                            <td><%= u.email %></td>
-                            <td><%= u.birth_date %></td>
-                            <td><%= u.join_date %></td>
-                            <td><%= u.resign_date %></td>
+                            <th>ID</th>
+                            <th>氏名</th>
+                            <th>郵便番号</th>
+                            <th>住所</th>
+                            <th>電話番号</th>
+                            <th>E-mail</th>
+                            <th>生年月日</th>
+                            <th>入会年月日</th>
+                            <th>退会年月日</th>
                         </tr>
-                    <% end %>
+                    </thead>
+                    <tbody>
+                        <% @users.each do |u| %>
+                            <tr onclick="location.href='/users/<%= u.id %>'">
+                                <td><%= u.id %></td>
+                                <td><%= u.name %></td>
+                                <td><%= u.post_code %></td>
+                                <td><%= u.address %></td>
+                                <td><%= u.tel_number %></td>
+                                <td><%= u.email %></td>
+                                <td><%= u.birth_date %></td>
+                                <td><%= u.join_date %></td>
+                                <td><%= u.resign_date %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
                 </table>
                 <%= paginate @users, theme: 'bootstrap-5' %>
             </div>
