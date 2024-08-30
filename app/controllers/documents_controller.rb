@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   def index
-    @documents = Document.order(:id).page(params[:page]).per(15)
+    @documents = Document.order(id: :desc).page(params[:page]).per(15)
     isbn = params[:isbn]
     name = params[:name]
     author = params[:author]
@@ -18,10 +18,12 @@ class DocumentsController < ApplicationController
     if category_id.present?
       @documents = @documents.where(category_id: category_id)
     end
+    if params[:new_or_all_documents] == "new"
+      @documents = @documents.where('published_on >= ?', 3.months.ago)
+    else
+      @documents = @documents
+    end
 
-    # if resign_date.present?
-    #   @documents = @documents.
-    # end
   end
   
   def show
@@ -57,6 +59,12 @@ class DocumentsController < ApplicationController
   
   def destroy
     @document = Document.find(params[:id])
+
+    if @document.stocks.exists?
+      flash[:danger] = '削除できませんでした'
+      return redirect_back(fallback_location: root_path)
+    end
+
     @document.destroy
     flash[:success] = '削除しました'
     redirect_to documents_path

@@ -1,6 +1,6 @@
 <% @document_title = "貸出情報編集" %>
 
-<div class="card">
+<div class="card container">
     <%= render 'commons/errors', model: @lending %>
 
     <div class="card container">
@@ -38,6 +38,10 @@
                     <%= f.date_field :lent_date, class:"form-control w-auto", value: @lending.lent_date %>
                 </div>
                 <div class="mb-3">
+                    返却期日
+                    <%= f.date_field :due_date, class:"form-control w-auto", value: @lending.due_date %>
+                </div>
+                <div class="mb-3">
                     返却年月日
                     <%= f.date_field :return_date, class:"form-control w-auto", value: @lending.return_date %>
                 </div>
@@ -50,8 +54,8 @@
             <div class="card-footer">
                  <div class="card-footer">
                     <%= f.submit '編集を確定', class:"btn btn-primary" %>
-                    <%= link_to 'キャンセル', @lending, class:"btn btn-sm btn-outline-dark" %>
-                    <%= link_to '一覧へ戻る', lendings_path, class:"btn btn-link" %>
+                    <%= link_to '貸出詳細へ戻る', @lending, class:"btn btn-sm btn-outline-success" %>
+                    <%= link_to '貸出一覧へ', lendings_path, class:"btn btn-sm btn-outline-secondary" %>
                 </div>
             </div>
 

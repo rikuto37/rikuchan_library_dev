@@ -16,8 +16,8 @@ ja:
         resign_date: 退会年月日
       document:
         isbn: ISBN番号
-        name: 名前
-        category_id: 分類
+        name: 資料名
+        category: 分類
         author: 著者
         publisher: 出版社
         published_on: 出版日

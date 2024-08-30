@@ -1,6 +1,6 @@
 <% @document_title = "在庫情報詳細" %>
 
-<div class="card">
+<div class="card container">
     <div class="card-header">
         <%= @document_title %>
     </div>
@@ -52,9 +52,66 @@
         <div class="d-flex justify-content-between">
             <div>
                 <%= link_to '編集する', edit_stock_path, class:"btn  btn-sm btn-outline-primary" %>
-                <%= link_to '在庫一覧へ', stocks_path, class:"btn btn-link" %>
+                <%= link_to '在庫一覧へ', stocks_path, class:"btn btn-sm btn-outline-secondary" %>
             </div>
-            <%= button_to '誤登録情報を削除', stock_path(@stock), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
+            <% if @stock.lendings.nil?%>
+                <%= button_to '誤登録情報を削除', stock_path(@stock), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
+            <% end %>
         </div>
+    </div>
+</div>
+
+<div class="card mt-3 container">
+    <div class="card-header">
+        資料ID: <%= @stock.id %>&emsp;直近5件の貸出一覧(<%= @stock.lendings.order(id: :desc).limit(5).count %>件)
+    </div>
+    <div class="list-group list-group-flush">
+        <% @stock.lendings.order(id: :desc).limit(5).each do |l| %>
+            <a href="/lendings/<%= l.id %>" class="list-group-item list-group-item-action">
+                <div class="mb-1 row"> 
+                    <div class="col-2">
+                        会員ID:
+                    </div>
+                    <div class="col-10">
+                        <%= l.user_id %>
+                    </div>
+                </div> 
+                <div class="mb-1 row"> 
+                    <div class="col-2">
+                        氏名:
+                    </div>
+                    <div class="col-10">
+                        <%= l.user.name %>
+                    </div>
+                </div> 
+                <div class="mb-1 row"> 
+                    <div class="col-2">
+                        貸出年月日:
+                    </div> 
+                     <div class="col-10">
+                        <%= l.lent_date %>
+                    </div> 
+                </div> 
+                <% if l.return_date %>
+                    <div class="mb-1 row"> 
+                        <div class="col-2">
+                            返却年月日:
+                        </div> 
+                        <div class="col-10">
+                            <%= l.return_date %>
+                        </div> 
+                    </div> 
+                    <% else %>
+                    <div class="mb-1 row"> 
+                        <div class="col-2">
+                            返却期日:
+                        </div> 
+                        <div class="col-10">
+                            <%= l.due_date %>(貸出中)
+                        </div> 
+                    </div> 
+                <% end %>
+            </a>
+        <% end %>
     </div>
 </div>

@@ -75,10 +75,10 @@
     <div class="card-footer">
         <div class="d-flex justify-content-between">
             <div>
-                <%= link_to '新規貸出登録', new_lending_path(user_id: @lending.user_id)%>
+                <%= link_to '新規貸出登録', new_lending_path(user_id: @lending.user_id), class:"btn  btn-sm btn-outline-danger"%>
                 <%= link_to '編集する', edit_lending_path, class:"btn  btn-sm btn-outline-primary" %>
-                <%= link_to '一覧へ戻る', lendings_path, class:"btn btn-link" %>
-                <%= link_to "会員詳細情報", user_path(@lending.user_id), class:"link-primary" %>
+                <%= link_to "会員詳細情報へ", user_path(@lending.user_id), class:"btn btn-sm btn-outline-success" %>
+                <%= link_to '貸出一覧へ', lendings_path, class:"btn btn-sm btn-outline-secondary" %>
             </div>
             <%= button_to '誤登録情報を削除', lending_path(@lending), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
         </div>

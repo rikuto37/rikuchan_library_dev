@@ -77,10 +77,53 @@
             <div>
                 <%= link_to '在庫を新規登録する', new_stock_path(document_id: @document.id), class:"btn btn-sm btn-outline-danger" %>
                 <%= link_to '編集する', edit_document_path, class:"btn  btn-sm btn-outline-primary" %>
-                <%= link_to '一覧へ戻る', documents_path, class:"btn btn-link" %>
+                <%= link_to '目録一覧へ', documents_path, class:"btn btn-sm btn-outline-secondary" %>
             </div>
-            <%= button_to '誤登録情報を削除', document_path(@document), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
+            <% if @document.stocks.nil? %>
+                <%= button_to '誤登録情報を削除', document_path(@document), method: :delete, onclick: "return confirm('削除しますか?')", class:"btn btn-sm btn-outline-secondary" %>
+            <% end %>
         </div>
+    </div>
+</div>
+
+<div class="card mt-3 container">
+    <div class="card-header">
+        『<%= @document.name %>』現在の在庫一覧(<%= @document.stocks.where(disposal_date: nil).count %>件)
+    </div>
+    <div class="list-group list-group-flush">
+        <% @document.stocks.each do |s| %>
+            <%if s.disposal_date == nil %>
+                <a href="/lendings/<%= s.id %>" class="list-group-item list-group-item-action">
+                    <div class="mb-1 row"> 
+                        <div class="col-2">
+                            資料ID:
+                        </div>
+                        <div class="col-10">
+                            <%= s.id %>
+                        </div>
+                    </div> 
+                    <div class="mb-1 row"> 
+                        <div class="col-2">
+                            入荷年月日:
+                        </div> 
+                         <div class="col-10">
+                            <%= s.arrival_date %>
+                        </div> 
+                    </div> 
+                    <div class="mb-1 row"> 
+                        <div class="col-2">
+                            貸出状況:
+                        </div> 
+                         <div class="col-10">
+                            <% if l = s.lendings.where(return_date: nil).first %>
+                                貸出中(返却期日:<%= l.due_date %>) 
+                            <% end %>
+                        </div> 
+                    </div> 
+                </a>
+            <% end %>
+            
+        <% end %>
     </div>
 </div>
 

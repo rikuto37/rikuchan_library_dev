@@ -65,8 +65,7 @@
     </div>
 
     <div class="card-footer">
-        <div class="d-flex justify-content-between">
-            <div>
+        <div class="d-flex ">
                 <%= form_with model: @lending do |f| %>
                     <%= f.submit '登録を確定する', class:"btn  btn-sm btn-outline-primary" %>
 
@@ -76,8 +75,7 @@
                     <%= f.hidden_field :due_date, value: @lending.due_date %>
                     <%= f.hidden_field :comment, value: @lending.comment %>
                 <% end %>
-                <%= link_to '入力画面に戻る', new_lending_path(user_id: @lending.user_id, stock_id: @lending.stock_id, lent_date: @lending.lent_date), class:"btn btn-link" %> 
-            </div>
+                <%= link_to '入力画面に戻る', new_lending_path(user_id: @lending.user_id, stock_id: @lending.stock_id, lent_date: @lending.lent_date), class:"btn btn-sm btn-outline-success" %> 
         </div>
     </div>
 </div>

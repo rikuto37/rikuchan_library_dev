@@ -8,15 +8,20 @@
                     <div class="card-header">検索フォーム</div>
                         <div class="card-body">
                             <div class="mb-3">
-                                <%= f.text_field :usr_id, value: params[:user_id], class:"form-control", placeholder: "会員ID" %>
+                                <%= f.text_field :user_id, value: params[:user_id], class:"form-control", placeholder: "会員ID" %>
                             </div>                                                
                             <div class="mb-3">
                                 <%= f.text_field :stock_id, value: params[:stock_id], class:"form-control", placeholder: "資料ID" %>
                             </div>
                             <div class="mb-3">
+                                <%= f.radio_button :overdue_or_all, :all, checked: params[:overdue_or_all]!= "overdue" %>
+                                <%= f.label :overdue_or_all, "全件表示", value: params[:overdue_or_all] %>
+                                <%= f.radio_button :overdue_or_all, :overdue, checked: params[:overdue_or_all]== "overdue" %>
+                                <%= f.label :overdue_or_all, "延滞者を表示", value: params[:overdue_or_all] %>
+                            </div>                                
+                            <%# <div class="mb-3">
                                 延滞者検索
                                 <%= f.select :count_overdue_days, [["全延滞者", "all_overdue_users"], ["10日以上29日以内", "between_10_and_30"], ["30日以上", "over_30"]],  { include_blank: '選択してください', value: params[:count_overdue_days]}, class:"form-control" %>
-                            </div>
                         </div> 
                     <div class="card-footer">
                         <%= f.submit '検索', name: nil, class:"btn btn-success w-100" %>
@@ -29,18 +34,18 @@
     <div class="col-9">
         <div class="right">
             <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
-                <h1 class="h3"><%= @document_title %>(<%= @lendings.page.count %>件)</h1>
+                <h1 class="h3"><%= @document_title %>(<%= @lendings.total_count %>件)</h1>
                 <%= link_to '新規貸出登録', new_lending_path, class:"btn btn-sm btn-outline-danger" %>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>貸出年月日</th>
                             <th>会員ID</th>
                             <th>氏名</th>
                             <th>資料ID</th>
                             <th>貸出資料名</th>
-                            <th>貸出年月日</th>
                             <th>返却期日</th>
                             <th>返却年月日</th>
                             <th>延滞日数</th>
@@ -49,11 +54,11 @@
                     <tbody>
                         <% @lendings.each do |l| %>
                             <tr onclick="location.href='/lendings/<%= l.id %>'">
+                                <td><%= l.lent_date %></td>
                                 <td><%= l.user_id %></td>
                                 <td><%= l.user.name %></td>
                                 <td><%= l.stock_id %></td>
                                 <td><%= l.stock.document.name %></td>
-                                <td><%= l.lent_date %></td>
                                 <td><%= l.due_date %></td>
                                 <td><%= l.return_date %></td>
                                 <td name="overdue">

@@ -12,7 +12,13 @@
                         </div>
                         <div class="mb-3">
                             <%= f.text_field :name, value: params[:name], class:"form-control", placeholder: "氏名" %>
-                        </div>                                                     
+                        </div> 
+                        <div class="mb-3">
+                            <%= f.radio_button :presence_or_all, :all, checked: params[:presence_or_all] != "presence" %>
+                            <%= f.label :presence_or_all, "全件表示", value: params[:presence_or_all] %>
+                            <%= f.radio_button :presence_or_all, :presence, checked: params[:presence_or_all] == "presence" %>
+                            <%= f.label :presence_or_all, "現会員のみ表示", valu: params[:presence_or_all] %>
+                        </div>                                                        
                     </div>
                     <div class="card-footer">
                         <%= f.submit '検索', name: nil, class:"btn btn-success w-100" %>
@@ -24,7 +30,7 @@
     <div class="col-9">
         <div class="right">
             <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
-                <h1 class="h3"><%= @document_title %>(<%= @users.page.count %>件)</h1>
+                <h1 class="h3"><%= @document_title %>(<%= @users.total_count %>件)</h1>
                 <%= link_to '新規会員登録', new_user_path, class:"btn btn-sm btn-outline-danger" %>
             </div>
             <div class="table-responsive">

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_logged_in
   def index
-    @users = User.order(:id).page(params[:page]).per(15)
+    @users = User.order(id: :desc).page(params[:page]).per(15)
     id = params[:id]
     name = params[:name]
     # except_resigned = params[:resign_date]
@@ -11,15 +11,17 @@ class UsersController < ApplicationController
     if name.present?
       @users = @users.where('name LIKE ?', "%#{name}%")
     end
-    # if resign_date.present?
-    #   @users = @users.
-    # end
+    if params[:presence_or_all] == "presence"
+      @users = @users.where(resign_date: nil)
+    else
+      @users = @users
+    end
   end
   
   def show
     @user = User.find(params[:id])
   end
-  
+
   def new
     @user = User.new
   end
@@ -49,6 +51,12 @@ class UsersController < ApplicationController
   
   def destroy
     @user = User.find(params[:id])
+
+    if @user.lendings.exists?
+      flash[:danger] = '削除できませんでした'
+      return redirect_back(fallback_location: root_path)
+    end
+
     @user.destroy
     flash[:success] = '削除しました'
     redirect_to users_path

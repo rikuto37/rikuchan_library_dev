@@ -1,6 +1,6 @@
 class LendingsController < ApplicationController
   def index
-    @lendings = Lending.eager_load(:user).eager_load(:stock).order(:id).page(params[:page]).per(15)
+    @lendings = Lending.eager_load(:user).eager_load(:stock).order(lent_date: :desc).page(params[:page]).per(15)
     user_id = params[:user_id]
     stock_id = params[:stock_id]
     # count_overdue_days = params[:count_overdue_days]
@@ -9,6 +9,11 @@ class LendingsController < ApplicationController
     end
     if stock_id.present?
       @lendings = @lendings.where(stock_id: stock_id)
+    end
+    if params[:overdue_or_all] == "overdue"
+      @lendings = @lendings.where(return_date: nil).where('due_date < ?', Date.today).order(due_date: :asc)
+    else
+      @lendings = @lendings
     end
     # if count_overdue_days == all_overdue_users
       
@@ -41,7 +46,6 @@ class LendingsController < ApplicationController
 
   def new
     @lending = Lending.new
-
   end
   
   def create
@@ -93,9 +97,21 @@ class LendingsController < ApplicationController
   end
   
   def confirm
+    
     @user = User.find_by(id: params[:lending][:user_id])
     @lending = Lending.new(lending_params)
-  
+
+    if params[:lending][:user_id].blank? 
+      @lending.errors.add(:base, '会員IDを入力してください')
+      render 'new', status: :unprocessable_entity
+      return
+    end
+    if params[:lending][:stock_id].blank?
+      @lending.errors.add(:base, '資料IDを入力してください')
+      render 'new', status: :unprocessable_entity
+      return
+    end
+
     if @lending.stock.document.published_within_3months?
       @lending.due_date = @lending.lent_date.next_day(10)
     else
@@ -111,7 +127,7 @@ class LendingsController < ApplicationController
 
   private
   def lending_params
-    params.require(:lending).permit(:user_id, :stock_id, :lent_date, :return_date, :comment)
+    params.require(:lending).permit(:user_id, :stock_id, :lent_date, :due_date, :return_date, :comment)
   end
 
 end

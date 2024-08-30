@@ -22,10 +22,10 @@
                             <%= f.collection_select :category_id, Category.all, :id, :name, { include_blank: '選択してください', selected: params[:category_id]}, class:"form-control" %>
                         </div>
                         <div class="mb-3">
-                            <%= f.radio_button :published_within_3months?, :no_all %>
-                            <%= f.label :published_within_3months?, "全件表示", {value: :published_within_3months} %>
-                            <%= f.radio_button :published_within_3months?, :yes %>
-                            <%= f.label :published_within_3months?, "新刊のみを表示", {value: :published_within_3months} %>
+                            <%= f.radio_button :new_or_all_documents, :all, checked: params[:new_or_all_documents]!= "new"  %>
+                            <%= f.label :new_or_all_documents, "全件表示", value: params[:new_or_all_documents] %>
+                            <%= f.radio_button :new_or_all_documents, :new, checked: params[:new_or_all_documents]== "new" %>
+                            <%= f.label :new_or_all_documents, "新刊のみを表示", valu: params[:new_or_all_documents] %>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -38,7 +38,7 @@
     <div class="col-9">
         <div class="right">
             <div class="pb-2 border-bottom mb-3 d-flex justify-content-between align-items-start">
-                <h1 class="h3"><%= @document_title %>(<%= @documents.page.count %>件)</h1>
+                <h1 class="h3"><%= @document_title %>(<%= @documents.total_count %>件)</h1>
                 <%= link_to '新規目録登録', new_document_path, class:"btn btn-sm btn-outline-danger" %>
             </div>                
             <div class="table-responsive">
@@ -63,7 +63,12 @@
                                 <td><%= d.category.category_code %>:<%= d.category.name %></td>
                                 <td><%= d.author %></td>
                                 <td><%= d.publisher %></td>
-                                <td><%= d.published_on %></td>
+                                <td>
+                                    <%= d.published_on %>
+                                    <%if d.published_within_3months? %>
+                                    ☆
+                                    <% end %>
+                                </td>
                             </tr>
                         <% end %>
                     </tbody>

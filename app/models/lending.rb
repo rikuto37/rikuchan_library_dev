@@ -6,14 +6,14 @@ class Lending < ApplicationRecord
   validates :lent_date, presence: true
   validates :due_date , presence: true
 
-  validate :valid_user
-  validate :valid_stock
+  validate :valid_user ,on: :create
+  validate :valid_stock,on: :create
 
   belongs_to :user
   belongs_to :stock
   
   def is_overdue?
-    Date.today - due_date >= 1
+    Date.today - due_date >= 1 && return_date.blank?
   end
 
   def valid_user

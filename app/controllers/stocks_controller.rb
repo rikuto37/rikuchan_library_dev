@@ -1,6 +1,6 @@
 class StocksController < ApplicationController
   def index
-    @stocks = Stock.eager_load(:document).order(:id).page(params[:page]).per(15)
+    @stocks = Stock.eager_load(:document).order(id: :desc).page(params[:page]).per(15)
     id = params[:id]
     isbn= params[:isbn]
     name = params[:name]
@@ -13,6 +13,11 @@ class StocksController < ApplicationController
     end
     if name.present?
       @stocks = @stocks.where('documents.name LIKE ?', "%#{name}%")
+    end
+    if params[:presence_or_all] == "presence"
+      @stocks = @stocks.where(disposal_date: nil)
+    else
+      @stocks = @stocks
     end
   end
 
@@ -52,6 +57,12 @@ class StocksController < ApplicationController
   
   def destroy
     @stock = Stock.find(params[:id])
+
+    if @stock.lendings.exists?
+      flash[:danger] = '削除できませんでした'
+      return redirect_back(fallback_location: root_path)
+    end
+
     @stock.destroy
     flash[:success] = '削除しました'
     redirect_to stocks_path
